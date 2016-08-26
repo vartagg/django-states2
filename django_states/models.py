@@ -43,14 +43,6 @@ class StateModelBase(ModelBase):
                                         verbose_name=_('state id'),
                                         machine=attrs['Machine'])
 
-        # Wrap __unicode__ for state model
-        if '__unicode__' in attrs:
-            old_unicode = attrs['__unicode__']
-
-            def new_unicode(self):
-                return '%s (%s)' % (old_unicode(self), self.Machine.get_state(self.state).description)
-            attrs['__unicode__'] = new_unicode
-
         # Call class constructor of parent
         return ModelBase.__new__(cls, name, bases, attrs)
 
